@@ -1,5 +1,7 @@
 package com.eddy.springsecurity.services;
 
+import java.util.List;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class UserService {
     }
     
     public void init() {
-    	if(roleRepository.findAll().size() < 1 ) {
+    	if(roleRepository.findAll().size() < 1 ) {		//Will check if role table is empty, if it is it will create a role for user and another for admin
     		Role user = new Role();
     		user.setName("ROLE_USER");
     		
@@ -53,7 +55,11 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
     
-    public User findByEnmail(String email) {
+    public User findByEmail(String email) {
     	return userRepository.findByEmail(email);
+    }
+    
+    public List<User> findAll(){
+    	return (List<User>) userRepository.findAll();
     }
 }
